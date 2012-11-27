@@ -1,15 +1,20 @@
 City MyCity {
 	District RichDistrict {
 		
-		rd5 as block isNorthOf rd4;
-		
-		rd4 as block isNorthOf rd3;
+		// syntactical validation because street names normally
+		// start with an upper case
+		Street testStreet runs westToEast {
+			obj1 as house
+			obj2 as apartment
+			obj3 as multiFamily
+		};
 		
 		// code completion after isNorthOf does not show up rd3
 		// this is an example for custom scoping
 		rd3 as block isNorthOf rd1;
 		
-		// semantical validation because this is not possible
+		// semantical validation because cross referencing each
+		// other is not allowed (and does not make sense ;-))
 		rd2 as block isNorthOf rd1;	 
 		rd1 as block isNorthOf rd2;
 	}
