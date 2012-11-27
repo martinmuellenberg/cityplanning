@@ -1,0 +1,35 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: de.itemis.xtext.showcases.cityplanning
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: de.itemis.xtext.showcases.cityplanning; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: de.itemis.xtext.showcases.cityplanning,
+ de.itemis.xtext.showcases.cityplanning.services,
+ de.itemis.xtext.showcases.cityplanning.cityDsl,
+ de.itemis.xtext.showcases.cityplanning.cityDsl.impl,
+ de.itemis.xtext.showcases.cityplanning.cityDsl.util,
+ de.itemis.xtext.showcases.cityplanning.serializer,
+ de.itemis.xtext.showcases.cityplanning.parser.antlr,
+ de.itemis.xtext.showcases.cityplanning.parser.antlr.internal,
+ de.itemis.xtext.showcases.cityplanning.validation,
+ de.itemis.xtext.showcases.cityplanning.scoping,
+ de.itemis.xtext.showcases.cityplanning.generator,
+ de.itemis.xtext.showcases.cityplanning.formatting
+

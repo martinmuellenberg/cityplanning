@@ -1,0 +1,67 @@
+grammar de.itemis.xtext.showcases.cityplanning.CityDsl with org.eclipse.xtext.common.Terminals
+
+generate cityDsl "http://www.itemis.de/xtext/showcases/cityplanning/CityDsl"
+
+	
+///////////////////////////////////////////////////////////////////////////////
+//								Model Rules
+///////////////////////////////////////////////////////////////////////////////
+M_Model:
+	objects=O_Objects & city=C_City;
+
+
+///////////////////////////////////////////////////////////////////////////////
+//								City Rules
+///////////////////////////////////////////////////////////////////////////////	
+C_City:
+	'City' name=ID '{'
+		(districts+=C_District)*
+	'}';
+
+C_District: 'District' name=ID '{'
+		(elements+=C_Element)*
+	'}';
+
+C_Element:
+	(C_Object | C_Street) (position=C_Position)? ';';
+
+C_Object:
+	name=ID 'as' object=[O_Object];
+
+C_Street:
+	'Street' name=ID 'runs' type=C_StreetType '{'
+		(objects+=C_Object)*
+	'}';
+	
+enum C_StreetType:
+	NORTH_TO_SOUTH='northToSouth' | EAST_TO_WEST='eastToWest' | SOUTH_TO_NORD='southToNorth' | WEST_TO_EAST='westToEast';
+
+C_Position:
+	type=C_PositionType ref=[C_Object];
+
+enum C_PositionType:
+	IS_NORTH_OF='isNorthOf' | IS_EAST_OF='isEastOf' | IS_SOUTH_OF='isSouthOf' | IS_WEST_OF='isWestOf';
+
+
+///////////////////////////////////////////////////////////////////////////////
+//								Object Rules
+///////////////////////////////////////////////////////////////////////////////
+O_Objects: {O_Objects}
+	label='Objects' '{' (objects+=O_Object)* '}';
+
+O_Object:
+	O_Building;
+
+O_Building:
+	building=O_HabitantBuilding name=ID ('{' attributes=O_BuildingAttributes '}')?;
+
+O_HabitantBuilding:
+	type=O_HabitantBuildingType;
+
+enum O_HabitantBuildingType:
+	APARTMENT_BUILDING='ApartmentBuilding' | CITY_BLOCK='CityBlock'
+	| DETACHED_HOUSE='DetachedHouse' | MULTIFAMILY_HOUSE='MultiFamilyHouse'
+	| SKYSCRAPER='Skyscraper';
+
+O_BuildingAttributes: {O_BuildingAttributes}
+	(('built' built=INT)? & ('costs' cost=INT)? & ('floors' floors=INT)? & ('size' size=INT)?);
