@@ -1,0 +1,24 @@
+City MyCity {
+	District RichDistrict {
+		
+		rd5 as block isNorthOf rd4;
+		
+		rd4 as block isNorthOf rd3;
+		
+		// code completion after isNorthOf does not show up rd3
+		// this is an example for custom scoping
+		rd3 as block isNorthOf rd1;
+		
+		// semantical validation because this is not possible
+		rd2 as block isNorthOf rd1;	 
+		rd1 as block isNorthOf rd2;
+	}
+}
+
+Objects {
+	ApartmentBuilding apartment { built 2014 costs 1000000 }
+	CityBlock block
+	DetachedHouse house { built 2012 size 100 costs 1 }
+	MultiFamilyHouse multiFamily
+	Skyscraper highRise { size 500 floors 88 }
+}
