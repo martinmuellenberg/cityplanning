@@ -6,10 +6,30 @@ package de.itemis.xtext.showcases.cityplanning.generator
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import de.itemis.xtext.showcases.cityplanning.cityDsl.C_City
+import de.itemis.xtext.showcases.cityplanning.cityDsl.M_Model
 
 class CityDslGenerator implements IGenerator {
-	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
-		//TODO implement me
+		val mModel = (resource.contents.get(0)) as M_Model
+		val cCity = mModel.city
+		
+		fsa.generateFile(cCity.name + ".svg", cCity.compile)
 	}
+	
+	def compile(C_City e) '''
+	  <?xml version="1.0"?>
+	  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+	  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	  	<g transform="scale(1)">
+	  		<!-- Show outline of canvas using 'rect' element -->
+	  		<rect x="5" y="5" width="300" height="300" fill="none" stroke="blue" stroke-width="10"/>
+	  		<rect x="10" y="10" width="25" height="25" fill="none" stroke="red" stroke-width="4"/>
+	  		<rect x="10" y="35" width="25" height="25" fill="none" stroke="red" stroke-width="4"/>
+	  		<image x="100" y="100" width="10%" height="10%" xlink:href="../objects/buildings/detached_house_eu.png">
+	  			<title>My image</title>
+	  		</image>
+	  	</g>
+	  </svg>
+	'''
 }
